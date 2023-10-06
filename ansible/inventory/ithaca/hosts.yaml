@@ -1,6 +1,10 @@
+all:
+  vars:
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
 director:
   hosts:
-    m00:
+    manager-00:
       ansible_host: 10.10.3.101
 
 managers:
@@ -9,5 +13,10 @@ managers:
 
 workers:
   hosts:
-    w00:
+    worker-00:
       ansible_host: 10.10.3.111
+
+k8s_hosts:
+  children:
+    managers:
+    workers:

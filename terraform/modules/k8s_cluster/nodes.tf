@@ -1,6 +1,6 @@
 resource "proxmox_vm_qemu" "k8s_manager" {
   count       = var.manager_count
-  name        = format("%s-m%02s", var.cluster_name, count.index)
+  name        = format("%s-manager-%02s", var.cluster_name, count.index)
   desc        = "k8s manager node"
   tags        = "k8s;manager"
   onboot      = true
@@ -30,7 +30,7 @@ resource "proxmox_vm_qemu" "k8s_manager" {
 
 resource "proxmox_vm_qemu" "k8s_worker" {
   count       = var.worker_count
-  name        = format("%s-w%02s", var.cluster_name, count.index)
+  name        = format("%s-worker-%02s", var.cluster_name, count.index)
   desc        = "k8s worker node"
   tags        = "k8s;worker"
   onboot      = true
