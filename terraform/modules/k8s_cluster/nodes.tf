@@ -24,7 +24,7 @@ resource "proxmox_vm_qemu" "k8s_manager" {
     bridge = "vmbr0"
   }
 
-  ipconfig0 = "ip=10.10.3.${count.index + 30}/24,gw=10.10.3.1"
+  ipconfig0 = "ip=10.10.3.${count.index + 101}/24,gw=10.10.3.1"
   sshkeys   = var.ssh_key
 }
 
@@ -54,6 +54,6 @@ resource "proxmox_vm_qemu" "k8s_worker" {
     bridge = "vmbr0"
   }
 
-  ipconfig0 = "ip=10.10.3.${count.index + 35}/24,gw=10.10.3.1"
+  ipconfig0 = "ip=10.10.3.${count.index + 111}/24,gw=10.10.3.1"
   sshkeys   = var.ssh_key
 }
