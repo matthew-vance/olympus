@@ -1,7 +1,7 @@
 director:
   hosts:
     m00:
-      ansible_host: 10.10.3.30
+      ansible_host: 10.10.3.101
 
 managers:
   children:
@@ -10,4 +10,4 @@ managers:
 workers:
   hosts:
     w00:
-      ansible_host: 10.10.3.35
+      ansible_host: 10.10.3.111
