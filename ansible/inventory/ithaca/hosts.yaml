@@ -1,0 +1,13 @@
+director:
+  hosts:
+    m00:
+      ansible_host: 10.10.3.30
+
+managers:
+  children:
+    director:
+
+workers:
+  hosts:
+    w00:
+      ansible_host: 10.10.3.35
