@@ -1,8 +1,8 @@
 resource "proxmox_vm_qemu" "k8s_manager" {
-  count       = var.manager_count
-  name        = format("%s-manager-%02s", var.cluster_name, count.index)
-  desc        = "k8s manager node"
-  tags        = "k8s;manager"
+  count       = var.server_count
+  name        = "k3s-server-${count.index}"
+  desc        = "k3s server node"
+  tags        = "k3s;server"
   onboot      = true
   target_node = var.proxmox_host
   clone       = var.template_name
@@ -14,7 +14,7 @@ resource "proxmox_vm_qemu" "k8s_manager" {
   memory      = 8192
   scsihw      = "virtio-scsi-pci"
   disk {
-    size    = "100G"
+    size    = var.node_disk_size
     type    = "scsi"
     storage = "local-zfs"
   }
@@ -29,10 +29,10 @@ resource "proxmox_vm_qemu" "k8s_manager" {
 }
 
 resource "proxmox_vm_qemu" "k8s_worker" {
-  count       = var.worker_count
-  name        = format("%s-worker-%02s", var.cluster_name, count.index)
-  desc        = "k8s worker node"
-  tags        = "k8s;worker"
+  count       = var.agent_count
+  name        = "k3s-agent-${count.index}"
+  desc        = "k3s agent node"
+  tags        = "k3s;agent"
   onboot      = true
   target_node = var.proxmox_host
   clone       = var.template_name
@@ -44,7 +44,7 @@ resource "proxmox_vm_qemu" "k8s_worker" {
   memory      = 8192
   scsihw      = "virtio-scsi-pci"
   disk {
-    size    = "100G"
+    size    = var.node_disk_size
     type    = "scsi"
     storage = "local-zfs"
   }

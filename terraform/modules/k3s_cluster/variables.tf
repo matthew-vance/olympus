@@ -1,13 +1,9 @@
-variable "cluster_name" {
-  type = string
-}
-
-variable "manager_count" {
+variable "server_count" {
   type    = number
   default = 1
 }
 
-variable "worker_count" {
+variable "agent_count" {
   type    = number
   default = 0
 }
@@ -24,4 +20,9 @@ variable "proxmox_host" {
 variable "template_name" {
   type    = string
   default = "debian-12-cloud-init"
+}
+
+variable "node_disk_size" {
+  type    = string
+  default = "40G"
 }

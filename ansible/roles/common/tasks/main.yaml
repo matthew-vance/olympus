@@ -1,0 +1,3 @@
+- name: Perform updates on Debian hosts
+  import_tasks: debian.yaml
+  when: ansible_facts["os_family"]|lower == "debian"

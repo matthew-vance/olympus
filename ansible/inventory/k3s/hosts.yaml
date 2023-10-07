@@ -2,21 +2,17 @@ all:
   vars:
     ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
 
-director:
+k3s_servers:
   hosts:
-    manager-00:
+    k3s-server-0:
       ansible_host: 10.10.3.101
 
-managers:
-  children:
-    director:
-
-workers:
+k3s_agents:
   hosts:
-    worker-00:
+    k3s-agent-0:
       ansible_host: 10.10.3.111
 
-k8s_hosts:
+k3s_hosts:
   children:
-    managers:
-    workers:
+    k3s_servers:
+    k3s_agents:
