@@ -32,7 +32,7 @@ resource "proxmox_vm_qemu" "k8s_worker" {
   count       = var.agent_count
   name        = "k3s-agent-${count.index}"
   desc        = "k3s agent node"
-  tags        = "k3s;agent"
+  tags        = "agent;k3s"
   onboot      = true
   target_node = var.proxmox_host
   clone       = var.template_name

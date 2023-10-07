@@ -1,0 +1,8 @@
+all:
+  vars:
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+pve_hosts:
+  hosts:
+    hera:
+      ansible_host: 10.10.3.12
