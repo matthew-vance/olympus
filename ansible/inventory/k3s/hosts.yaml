@@ -1,3 +1,22 @@
+k3s_clbs:
+  hosts:
+    k3s_clb_0:
+      ansible_host: 10.10.3.90
+    k3s_clb_1:
+      ansible_host: 10.10.3.91
+
+k3s_albs:
+  hosts:
+    k3s-alb-0:
+      ansible_host: 10.10.3.95
+    k3s-alb-1:
+      ansible_host: 10.10.3.96
+
+k3s_lbs:
+  children:
+    k3s_clbs:
+    k3s_albs:
+
 k3s_init_server:
   hosts:
     k3s-server-0:
@@ -21,6 +40,8 @@ k3s_agents:
 
 k3s_hosts:
   children:
+    k3s_clbs:
+    k3s_albs:
     k3s_init_server:
     k3s_servers:
     k3s_agents:
