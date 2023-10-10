@@ -1,5 +1,5 @@
 - name: Init k3s cluster
-  shell: curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_token }} sh -s - server --cluster-init --tls-san={{ k3s_clb_vip }}
+  shell: curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_token }} sh -s - server --cluster-init --tls-san={{ k3s_lb_vip }}
   args:
     creates: /etc/systemd/system/k3s.service
 - name: Copy kubeconfig to local machine
