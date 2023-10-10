@@ -1,20 +1,9 @@
-- hosts: k3s-lb-1
+- name: Configure cluster load balancer
+  hosts: k3s_lbs
   become: true
   roles:
     - load_balancer
     - k3s/load_balancer
-  vars:
-    keepalived_state: MASTER
-    keepalived_priority: 200
-
-- hosts: k3s-lb-2
-  become: true
-  roles:
-    - load_balancer
-    - k3s/load_balancer
-  vars:
-    keepalived_state: BACKUP
-    keepalived_priority: 100
 
 - hosts: k3s-server-1
   roles:
