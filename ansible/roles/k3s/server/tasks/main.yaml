@@ -1,0 +1,4 @@
+- name: Join servers to k3s cluster
+  shell: curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_token }} sh -s - server --server https://{{ hostvars['k3s-server-0']['ansible_default_ipv4']['address'] }}:6443 --tls-san={{ k3s_clb_vip }}
+  args:
+    creates: /etc/systemd/system/k3s.service
