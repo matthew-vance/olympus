@@ -1,0 +1,6 @@
+- name: Configure Portainer servers
+  hosts: portainer_servers
+  become: true
+  roles:
+    - docker
+    - portainer

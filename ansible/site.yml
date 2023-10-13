@@ -1,10 +1,5 @@
-- hosts: all
+- name: Update all hosts
+  hosts: all
   become: true
   roles:
-    - common
-
-- hosts: portainer_servers
-  become: true
-  roles:
-    - docker
-    - portainer
+    - update
