@@ -22,7 +22,7 @@ variable "pve_node" {
 
 variable "template" {
   type        = string
-  description = "Template to clone the VM from"
+  description = "Template to clone the VM from. This must be a cloud-init enabled template"
 }
 
 variable "cores" {
