@@ -1,0 +1,77 @@
+- name: Remove conflicting packages
+  apt:
+    pkg:
+      - docker.io
+      - docker-doc
+      - docker-compose
+      - podman-docker
+      - containerd
+      - runc
+    state: absent
+    update_cache: true
+
+- name: Install required packages
+  apt:
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+    update_cache: true
+
+- name: Check if Docker GPG key already exists
+  stat:
+    path: /etc/apt/keyrings/docker.gpg
+  register: key_check_result
+
+- block:
+    - name: Fetch Docker GPG key
+      get_url:
+        url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+        dest: /tmp/dockergpg
+
+    - name: De-armor key
+      command:
+        cmd: gpg --dearmor --output /etc/apt/keyrings/docker.gpg /tmp/dockergpg
+        creates: /etc/apt/keyrings/docker.gpg
+  when: not key_check_result.stat.exists
+
+- name: Add Docker APT repository
+  apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+    state: present
+
+- name: Install Docker
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create Portainer volume
+  community.docker.docker_volume:
+    name: portainer_data
+    state: present
+
+- name: Start Portainer container
+  community.docker.docker_container:
+    name: portainer
+    image: portainer/portainer-ce:latest
+    state: started
+    restart_policy: always
+    ports:
+      - 9443:9443
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data

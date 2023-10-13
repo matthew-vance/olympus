@@ -1,6 +1,0 @@
-- name: Install HAProxy and keepalived
-  apt:
-    pkg:
-      - haproxy
-      - keepalived
-    update_cache: true

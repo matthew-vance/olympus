@@ -1,6 +1,0 @@
-pve_hosts:
-  vars:
-    ansible_user: root
-  hosts:
-    hera:
-      ansible_host: 10.10.3.12

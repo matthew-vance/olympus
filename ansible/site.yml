@@ -1,0 +1,9 @@
+- hosts: all
+  become: true
+  roles:
+    - common
+
+- hosts: docker_hosts
+  become: true
+  roles:
+    - docker
