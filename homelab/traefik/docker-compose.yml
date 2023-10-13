@@ -15,6 +15,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
     labels:
+      - "traefik.http.routers.traefik.rule=Host(`traefik.olym.local`)"
       - "traefik.http.routers.traefik.service=api@internal"
 
   whoami:
