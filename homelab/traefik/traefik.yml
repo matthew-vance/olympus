@@ -1,0 +1,19 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+entryPoints:
+  web:
+    address: :80
+
+serversTransport:
+  insecureSkipVerify: true
+
+api:
+  insecure: true
+  dashboard: true
+
+providers:
+  docker:
+    defaultRule: Host(`{{ index .Labels "com.docker.compose.service" }}.olym.local`)
+    network: homelab

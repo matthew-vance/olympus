@@ -5,14 +5,12 @@ services:
     image: traefik:2.10
     container_name: traefik
     restart: unless-stopped
-    command: --api.insecure=true --providers.docker
     ports:
       - "80:80"
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
   whoami:
     image: traefik/whoami
-    labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.olym.local`)"
+    container_name: whoami
