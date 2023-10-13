@@ -57,21 +57,3 @@
     name: docker
     state: started
     enabled: true
-
-- name: Create Portainer volume
-  community.docker.docker_volume:
-    name: portainer_data
-    state: present
-
-- name: Start Portainer container
-  community.docker.docker_container:
-    name: portainer
-    image: portainer/portainer-ce:latest
-    state: started
-    restart_policy: always
-    ports:
-      - 9443:9443
-      - 8000:8000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data

@@ -3,7 +3,8 @@
   roles:
     - common
 
-- hosts: docker_hosts
+- hosts: portainer_servers
   become: true
   roles:
     - docker
+    - portainer
