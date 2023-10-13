@@ -16,4 +16,4 @@ api:
 providers:
   docker:
     defaultRule: Host(`{{ index .Labels "com.docker.compose.service" }}.olym.local`)
-    network: homelab
+    network: traefik
