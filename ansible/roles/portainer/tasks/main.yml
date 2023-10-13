@@ -3,6 +3,13 @@
     name: portainer_data
     state: present
 
+# This is a dirty hack to get around the fact that Portainer doesn't support relative paths for volume mounts
+- name: Symlinking Portainer volume
+  file:
+    src: /var/lib/docker/volumes/portainer_data/_data
+    dest: /data
+    state: link
+
 - name: Start Portainer container
   community.docker.docker_container:
     name: portainer
